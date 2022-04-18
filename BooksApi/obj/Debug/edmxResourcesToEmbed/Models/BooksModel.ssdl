@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AUTHORS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FULLNAME" Type="char" MaxLength="200" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="date" Nullable="false" />
+    <Property Name="HOMECITY" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="EMAIL" Type="char" MaxLength="100" Nullable="false" />
+    <Property Name="BOOKSLIMIT" Type="number" Precision="10" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BOOKS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TITLE" Type="char" MaxLength="200" Nullable="false" />
+    <Property Name="YEAR" Type="number" Precision="10" Scale="0" Nullable="false" />
+    <Property Name="GENDER" Type="char" MaxLength="100" Nullable="false" />
+    <Property Name="NUMPAGES" Type="number" Precision="10" Scale="0" Nullable="false" />
+    <Property Name="AUTHORID" Type="number" Precision="38" Scale="0" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AUTHORID">
+    <End Role="AUTHORS" Type="Self.AUTHORS" Multiplicity="1" />
+    <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHORS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BOOKS">
+        <PropertyRef Name="AUTHORID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BooksModelStoreContainer">
+    <EntitySet Name="AUTHORS" EntityType="Self.AUTHORS" Schema="NEXOSTEST" store:Type="Tables" />
+    <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="NEXOSTEST" store:Type="Tables" />
+    <AssociationSet Name="FK_AUTHORID" Association="Self.FK_AUTHORID">
+      <End Role="AUTHORS" EntitySet="AUTHORS" />
+      <End Role="BOOKS" EntitySet="BOOKS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

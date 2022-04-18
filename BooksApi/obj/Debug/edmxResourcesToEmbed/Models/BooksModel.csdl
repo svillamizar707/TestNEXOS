@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AUTHORS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FULLNAME" Type="String" MaxLength="200" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="DateTime" Nullable="false" />
+    <Property Name="HOMECITY" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="BOOKSLIMIT" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BOOKS" Relationship="Self.FK_AUTHORID" FromRole="AUTHORS" ToRole="BOOKS" />
+  </EntityType>
+  <EntityType Name="BOOKS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TITLE" Type="String" MaxLength="200" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="YEAR" Type="Int32" Nullable="false" />
+    <Property Name="GENDER" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NUMPAGES" Type="Int32" Nullable="false" />
+    <Property Name="AUTHORID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="AUTHORS" Relationship="Self.FK_AUTHORID" FromRole="BOOKS" ToRole="AUTHORS" />
+  </EntityType>
+  <Association Name="FK_AUTHORID">
+    <End Role="AUTHORS" Type="Self.AUTHORS" Multiplicity="1" />
+    <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTHORS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BOOKS">
+        <PropertyRef Name="AUTHORID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntitiesApi" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AUTHORS" EntityType="Self.AUTHORS" />
+    <EntitySet Name="BOOKS" EntityType="Self.BOOKS" />
+    <AssociationSet Name="FK_AUTHORID" Association="Self.FK_AUTHORID">
+      <End Role="AUTHORS" EntitySet="AUTHORS" />
+      <End Role="BOOKS" EntitySet="BOOKS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

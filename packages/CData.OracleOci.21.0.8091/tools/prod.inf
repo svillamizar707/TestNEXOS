@@ -1,0 +1,6 @@
+part=SORG-A
+version=21.0
+build=8091
+prod=Oracle Data Provider 2021
+licpath=./
+licname=System.Data.CData.OracleOci

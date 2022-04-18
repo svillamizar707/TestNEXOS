@@ -5,11 +5,11 @@ CREATE TABLE Authors(
 	BirthDate date NOT NULL,
 	HomeCity VARCHAR2(50) NOT NULL,
 	Email VARCHAR2(100) NOT NULL,
-    BooksLimit Number(10) NOT NULL,
-    CONSTRAINT PK_Authors PRIMARY KEY 
-    (
-        Id 
-    ) 
+	BooksLimit Number(10) NOT NULL,
+	CONSTRAINT PK_Authors PRIMARY KEY 
+	(
+	    Id 
+	)     
 );
 
 --Creación tabla de libros
@@ -21,13 +21,13 @@ CREATE TABLE Books(
 	Gender VARCHAR2(100) NOT NULL,
 	NumPages Number(10) NOT NULL,
 	AuthorId INTEGER NOT NULL,
-    CONSTRAINT PK_Books PRIMARY KEY 
-    (
-        Id 
-    ),
-    CONSTRAINT FK_AuthorId
-    FOREIGN KEY (AuthorId)
-    REFERENCES Authors(Id)
+        CONSTRAINT PK_Books PRIMARY KEY 
+        (
+            Id 
+        ),
+        CONSTRAINT FK_AuthorId
+        FOREIGN KEY (AuthorId)
+        REFERENCES Authors(Id)
 );
 
 --Creación de usuario de BD y asignación de permisos necesarios
